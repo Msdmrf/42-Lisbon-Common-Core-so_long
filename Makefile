@@ -6,7 +6,7 @@
 #    By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/09 16:11:44 by migusant          #+#    #+#              #
-#    Updated: 2025/06/09 20:03:11 by migusant         ###   ########.fr        #
+#    Updated: 2025/06/12 19:35:08 by migusant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,14 @@ RESET = \033[0m
 #                              SOURCE FILES                                    #
 # **************************************************************************** #
 
-SRC_FILES = main.c
+SRC_FILES = main.c \
+			map_loading.c \
+			map_validation.c \
+			map_elements.c \
+			map_pathfinding.c \
+			map_rendering.c \
+			game_events.c \
+			game_mechanics.c
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ = $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))
