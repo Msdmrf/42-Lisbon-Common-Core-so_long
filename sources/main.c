@@ -6,7 +6,7 @@
 /*   By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:13:28 by migusant          #+#    #+#             */
-/*   Updated: 2025/06/12 19:34:49 by migusant         ###   ########.fr       */
+/*   Updated: 2025/06/12 19:43:23 by migusant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_printf("Usage: %s <map_file.ber>.\n", argv[0]);
+		ft_printf("Usage: %s <map_file.ber>\n", argv[0]);
 		return (1);
 	}
 	init_game(&game);
