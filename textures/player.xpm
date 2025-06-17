@@ -1,6 +1,6 @@
 static char *player[] = {
 "32 32 5 1",
-"# c #228B22",
+"# c #0909FF",
 "$ c #1A1A1A",
 "@ c #2C2C2C",
 "* c #0F0F0F",
