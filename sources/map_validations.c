@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_validation.c                                   :+:      :+:    :+:   */
+/*   map_validations.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 12:20:00 by migusant          #+#    #+#             */
-/*   Updated: 2025/06/12 19:35:05 by migusant         ###   ########.fr       */
+/*   Updated: 2025/06/17 16:54:28 by migusant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,29 +64,50 @@ int	check_map_size(t_game *game)
 	return (1);
 }
 
+int	check_invalid_chars(t_game *game)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < game->map_height)
+	{
+		x = 0;
+		while (x < game->map_width)
+		{
+			if (game->map[y][x] != WALL && game->map[y][x] != EMPTY
+				&& game->map[y][x] != PLAYER && game->map[y][x] != COLLECTIBLE
+				&& game->map[y][x] != EXIT && game->map[y][x] != ENEMY_STATIC
+				&& game->map[y][x] != ENEMY_HORIZONTAL
+				&& game->map[y][x] != ENEMY_VERTICAL)
+			{
+				ft_putendl_fd("Error\nInvalid character in map.", 2);
+				return (0);
+			}
+			x++;
+		}
+		y++;
+	}
+	return (1);
+}
+
 int	validate_map(t_game *game, char *filename)
 {
-	if (!check_file_extension(filename))
-		return (0);
-	if (!check_rectangular(game))
-		return (0);
-	if (!check_map_size(game))
-		return (0);
-	if (!check_walls(game))
-		return (0);
-	if (!check_invalid_chars(game))
-		return (0);
-	if (!check_player(game))
-		return (0);
-	if (!check_collectibles(game))
-		return (0);
-	if (!check_exit(game))
-		return (0);
-	if (!check_path(game))
+	if (!check_file_extension(filename)
+		|| !check_rectangular(game)
+		|| !check_map_size(game)
+		|| !check_invalid_chars(game)
+		|| !check_walls(game)
+		|| !check_player(game)
+		|| !check_collectibles(game)
+		|| !check_enemies(game)
+		|| !check_path(game)
+		|| !check_exit(game))
 		return (0);
 	ft_printf("Map validation successful!\n");
 	ft_printf("Map size: %dx%d\n", game->map_width, game->map_height);
 	ft_printf("Player at: (%d, %d)\n", game->player_x, game->player_y);
 	ft_printf("Collectibles: %d\n", game->collectibles);
+	ft_printf("Enemies: %d\n", game->enemy_count);
 	return (1);
 }

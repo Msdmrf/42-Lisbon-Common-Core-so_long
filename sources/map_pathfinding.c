@@ -6,7 +6,7 @@
 /*   By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 12:35:14 by migusant          #+#    #+#             */
-/*   Updated: 2025/06/12 19:34:57 by migusant         ###   ########.fr       */
+/*   Updated: 2025/06/17 16:49:09 by migusant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 static int	flood_fill(char **map, int x, int y, t_game *game)
 {
 	if (x < 0 || x >= game->map_width || y < 0 || y >= game->map_height
-		|| map[y][x] == WALL || map[y][x] == 'V')
+		|| map[y][x] == WALL || map[y][x] == ENEMY_STATIC
+		|| map[y][x] == ENEMY_HORIZONTAL || map[y][x] == ENEMY_VERTICAL
+		|| map[y][x] == 'V')
 		return (0);
 	map[y][x] = 'V';
 	flood_fill(map, x + 1, y, game);
