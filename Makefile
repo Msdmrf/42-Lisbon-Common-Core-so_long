@@ -6,7 +6,7 @@
 #    By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/09 16:11:44 by migusant          #+#    #+#              #
-#    Updated: 2025/06/17 16:40:29 by migusant         ###   ########.fr        #
+#    Updated: 2025/08/04 19:24:17 by migusant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,14 +53,24 @@ RESET = \033[0m
 
 SRC_FILES = main.c \
 			map_loading.c \
-			map_validations.c \
-			map_elements.c \
+			map_validation_core.c \
+			map_validation_elements.c \
 			map_pathfinding.c \
-			map_rendering.c \
-			game_inputs.c \
-			game_interactions.c \
-			player_movements.c \
-			enemy_movements.c
+			sprites_manager.c \
+			sprites_collectible.c \
+			sprites_player.c \
+			sprites_enemy.c \
+			render_map.c \
+			render_entities.c \
+			render_ui.c \
+			update_animations.c \
+			player_system.c \
+			player_actions.c \
+			player_diagonal.c \
+			enemy_system.c \
+			enemy_actions.c \
+			game_loop.c \
+			game_interactions.c
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ = $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))
