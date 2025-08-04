@@ -6,7 +6,7 @@
 /*   By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:13:28 by migusant          #+#    #+#             */
-/*   Updated: 2025/06/17 16:46:00 by migusant         ###   ########.fr       */
+/*   Updated: 2025/08/04 19:23:10 by migusant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,26 +45,15 @@ void	free_map(char **map)
 
 int	close_game(t_game *game)
 {
-	if (game->enemy_patrol)
-		free(game->enemy_patrol);
+	if (game->enemy.patrol)
+		free(game->enemy.patrol);
 	if (game->map)
 		free_map(game->map);
+	destroy_images(game);
+	if (game->win)
+		mlx_destroy_window(game->mlx, game->win);
 	if (game->mlx)
 	{
-		if (game->wall_img)
-			mlx_destroy_image(game->mlx, game->wall_img);
-		if (game->floor_img)
-			mlx_destroy_image(game->mlx, game->floor_img);
-		if (game->player_img)
-			mlx_destroy_image(game->mlx, game->player_img);
-		if (game->collectible_img)
-			mlx_destroy_image(game->mlx, game->collectible_img);
-		if (game->exit_img)
-			mlx_destroy_image(game->mlx, game->exit_img);
-		if (game->enemy_img)
-			mlx_destroy_image(game->mlx, game->enemy_img);
-		if (game->win)
-			mlx_destroy_window(game->mlx, game->win);
 		mlx_destroy_display(game->mlx);
 		free(game->mlx);
 	}
@@ -85,7 +74,7 @@ int	main(int argc, char **argv)
 		return (close_game(&game), 1);
 	if (!init_window(&game))
 		return (close_game(&game), 1);
-	if (!render_images(&game))
+	if (!load_sprites(&game))
 		return (close_game(&game), 1);
 	init_enemy_patrol(&game);
 	render_map(&game);

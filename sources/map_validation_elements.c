@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_elements.c                                     :+:      :+:    :+:   */
+/*   map_validation_elements.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 12:54:15 by migusant          #+#    #+#             */
-/*   Updated: 2025/06/17 16:37:56 by migusant         ###   ########.fr       */
+/*   Updated: 2025/08/04 19:23:21 by migusant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ int	check_player(t_game *game)
 			if (game->map[y][x] == PLAYER)
 			{
 				players++;
-				game->player_x = x;
-				game->player_y = y;
+				game->player.x = x;
+				game->player.y = y;
 			}
 			x++;
 		}
@@ -85,7 +85,7 @@ int	check_collectibles(t_game *game)
 		}
 		y++;
 	}
-	game->collectibles = collectibles;
+	game->collectible.count = collectibles;
 	if (collectibles < 1)
 	{
 		ft_putendl_fd("Error\nMap must have at least one collectible.", 2);
@@ -115,7 +115,7 @@ int	check_enemies(t_game *game)
 		}
 		y++;
 	}
-	game->enemy_count = enemies;
+	game->enemy.count = enemies;
 	return (1);
 }
 

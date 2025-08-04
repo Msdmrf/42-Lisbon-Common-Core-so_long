@@ -1,16 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_validations.c                                  :+:      :+:    :+:   */
+/*   map_validation_core.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 12:20:00 by migusant          #+#    #+#             */
-/*   Updated: 2025/06/17 16:54:28 by migusant         ###   ########.fr       */
+/*   Updated: 2025/08/04 19:23:18 by migusant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
+
+int	validate_map(t_game *game, char *filename)
+{
+	if (!check_file_extension(filename)
+		|| !check_rectangular(game)
+		|| !check_map_size(game)
+		|| !check_invalid_chars(game)
+		|| !check_walls(game)
+		|| !check_player(game)
+		|| !check_collectibles(game)
+		|| !check_enemies(game)
+		|| !check_path(game)
+		|| !check_exit(game))
+		return (0);
+	ft_printf("Map validation successful!\n");
+	ft_printf("Map size: %dx%d\n", game->map_width, game->map_height);
+	ft_printf("Player at: (%d, %d)\n", game->player.x, game->player.y);
+	ft_printf("Collectibles: %d\n", game->collectible.count);
+	ft_printf("Enemies: %d\n", game->enemy.count);
+	return (1);
+}
 
 int	check_file_extension(char *filename)
 {
@@ -88,26 +109,5 @@ int	check_invalid_chars(t_game *game)
 		}
 		y++;
 	}
-	return (1);
-}
-
-int	validate_map(t_game *game, char *filename)
-{
-	if (!check_file_extension(filename)
-		|| !check_rectangular(game)
-		|| !check_map_size(game)
-		|| !check_invalid_chars(game)
-		|| !check_walls(game)
-		|| !check_player(game)
-		|| !check_collectibles(game)
-		|| !check_enemies(game)
-		|| !check_path(game)
-		|| !check_exit(game))
-		return (0);
-	ft_printf("Map validation successful!\n");
-	ft_printf("Map size: %dx%d\n", game->map_width, game->map_height);
-	ft_printf("Player at: (%d, %d)\n", game->player_x, game->player_y);
-	ft_printf("Collectibles: %d\n", game->collectibles);
-	ft_printf("Enemies: %d\n", game->enemy_count);
 	return (1);
 }

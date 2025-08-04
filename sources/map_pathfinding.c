@@ -6,28 +6,34 @@
 /*   By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 12:35:14 by migusant          #+#    #+#             */
-/*   Updated: 2025/06/17 16:49:09 by migusant         ###   ########.fr       */
+/*   Updated: 2025/08/04 19:23:16 by migusant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-static int	flood_fill(char **map, int x, int y, t_game *game)
+int	check_path(t_game *game)
 {
-	if (x < 0 || x >= game->map_width || y < 0 || y >= game->map_height
-		|| map[y][x] == WALL || map[y][x] == ENEMY_STATIC
-		|| map[y][x] == ENEMY_HORIZONTAL || map[y][x] == ENEMY_VERTICAL
-		|| map[y][x] == 'V')
+	char	**map_copy;
+
+	map_copy = copy_map(game);
+	if (!map_copy)
+	{
+		ft_putendl_fd("Error\nMemory allocation failed.", 2);
 		return (0);
-	map[y][x] = 'V';
-	flood_fill(map, x + 1, y, game);
-	flood_fill(map, x - 1, y, game);
-	flood_fill(map, x, y + 1, game);
-	flood_fill(map, x, y - 1, game);
+	}
+	flood_fill(map_copy, game->player.x, game->player.y, game);
+	if (!is_reachable(game, map_copy))
+	{
+		free_map(map_copy);
+		ft_putendl_fd("Error\nNo valid path to all collectibles and exit.", 2);
+		return (0);
+	}
+	free_map(map_copy);
 	return (1);
 }
 
-static char	**copy_map(t_game *game)
+char	**copy_map(t_game *game)
 {
 	char	**map_copy;
 	int		i;
@@ -50,7 +56,22 @@ static char	**copy_map(t_game *game)
 	return (map_copy);
 }
 
-static int	is_reachable(t_game *game, char **map_copy)
+int	flood_fill(char **map, int x, int y, t_game *game)
+{
+	if (x < 0 || x >= game->map_width || y < 0 || y >= game->map_height
+		|| map[y][x] == WALL || map[y][x] == ENEMY_STATIC
+		|| map[y][x] == ENEMY_HORIZONTAL || map[y][x] == ENEMY_VERTICAL
+		|| map[y][x] == 'V')
+		return (0);
+	map[y][x] = 'V';
+	flood_fill(map, x + 1, y, game);
+	flood_fill(map, x - 1, y, game);
+	flood_fill(map, x, y + 1, game);
+	flood_fill(map, x, y - 1, game);
+	return (1);
+}
+
+int	is_reachable(t_game *game, char **map_copy)
 {
 	int	i;
 	int	j;
@@ -68,26 +89,5 @@ static int	is_reachable(t_game *game, char **map_copy)
 		}
 		i++;
 	}
-	return (1);
-}
-
-int	check_path(t_game *game)
-{
-	char	**map_copy;
-
-	map_copy = copy_map(game);
-	if (!map_copy)
-	{
-		ft_putendl_fd("Error\nMemory allocation failed.", 2);
-		return (0);
-	}
-	flood_fill(map_copy, game->player_x, game->player_y, game);
-	if (!is_reachable(game, map_copy))
-	{
-		free_map(map_copy);
-		ft_putendl_fd("Error\nNo valid path to all collectibles and exit.", 2);
-		return (0);
-	}
-	free_map(map_copy);
 	return (1);
 }
