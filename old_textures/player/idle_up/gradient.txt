@@ -1,0 +1,8 @@
+frame_0 - #50C878
+frame_1 - #93C572
+frame_2 - #50C878
+frame_3 - #93C572
+frame_4 - #50C878
+frame_5 - #93C572
+frame_6 - #50C878
+frame_7 - #93C572

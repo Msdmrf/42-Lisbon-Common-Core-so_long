@@ -1,0 +1,8 @@
+frame_0 - #FFC0CB
+frame_1 - #FF91A4
+frame_2 - #FFC0CB
+frame_3 - #FF91A4
+frame_4 - #FFC0CB
+frame_5 - #FF91A4
+frame_6 - #FFC0CB
+frame_7 - #FF91A4

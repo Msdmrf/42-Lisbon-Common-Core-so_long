@@ -1,0 +1,8 @@
+frame_0 - #FDD835
+frame_1 - #FFF59D
+frame_2 - #FDD835
+frame_3 - #FFF59D
+frame_4 - #FDD835
+frame_5 - #FFF59D
+frame_6 - #FDD835
+frame_7 - #FFF59D

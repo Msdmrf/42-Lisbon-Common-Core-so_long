@@ -1,0 +1,8 @@
+frame_0 - #FFD580
+frame_1 - #FFAB47
+frame_2 - #FFD580
+frame_3 - #FFAB47
+frame_4 - #FFD580
+frame_5 - #FFAB47
+frame_6 - #FFD580
+frame_7 - #FFAB47

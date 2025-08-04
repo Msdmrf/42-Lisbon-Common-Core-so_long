@@ -1,0 +1,8 @@
+frame_0 - #E85D00
+frame_1 - #CC4400
+frame_2 - #E85D00
+frame_3 - #CC4400
+frame_4 - #E85D00
+frame_5 - #CC4400
+frame_6 - #E85D00
+frame_7 - #CC4400

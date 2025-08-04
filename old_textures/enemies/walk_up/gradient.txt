@@ -1,0 +1,8 @@
+frame_0 - #006400
+frame_1 - #556B2F
+frame_2 - #006400
+frame_3 - #556B2F
+frame_4 - #006400
+frame_5 - #556B2F
+frame_6 - #006400
+frame_7 - #556B2F

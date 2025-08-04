@@ -1,0 +1,8 @@
+frame_0 - #87CEEB
+frame_1 - #7DF9FF
+frame_2 - #87CEEB
+frame_3 - #7DF9FF
+frame_4 - #87CEEB
+frame_5 - #7DF9FF
+frame_6 - #87CEEB
+frame_7 - #7DF9FF

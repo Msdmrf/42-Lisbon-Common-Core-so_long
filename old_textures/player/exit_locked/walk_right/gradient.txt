@@ -1,0 +1,8 @@
+frame_0 - #C71585
+frame_1 - #A0366C
+frame_2 - #C71585
+frame_3 - #A0366C
+frame_4 - #C71585
+frame_5 - #A0366C
+frame_6 - #C71585
+frame_7 - #A0366C
