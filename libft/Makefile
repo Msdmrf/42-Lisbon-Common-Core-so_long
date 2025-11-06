@@ -6,7 +6,7 @@
 #    By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/10 18:13:33 by migusant          #+#    #+#              #
-#    Updated: 2025/05/27 13:56:24 by migusant         ###   ########.fr        #
+#    Updated: 2025/10/20 13:20:58 by migusant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ OFILES_DIR = objects/
 
 CHARS_DIR = $(CFILES_DIR)chars/
 CONVERTERS_DIR = $(CFILES_DIR)converters/
-GERNEXTLINE_DIR = $(CFILES_DIR)getnextline/
+GETNEXTLINE_DIR = $(CFILES_DIR)getnextline/
 LISTS_DIR = $(CFILES_DIR)lists/
 MEMORY_DIR = $(CFILES_DIR)memory/
 PRINTF_DIR = $(CFILES_DIR)printf/
@@ -60,8 +60,8 @@ CHARS = $(CHARS_DIR)ft_isalnum.c $(CHARS_DIR)ft_isalpha.c $(CHARS_DIR)ft_isascii
 CONVERTERS = $(CONVERTERS_DIR)ft_atoi.c $(CONVERTERS_DIR)ft_itoa.c \
             $(CONVERTERS_DIR)ft_tolower.c $(CONVERTERS_DIR)ft_toupper.c
 
-GETNEXTLINE = $(GERNEXTLINE_DIR)get_next_line.c $(GERNEXTLINE_DIR)get_next_line_utils.c \
-              $(GERNEXTLINE_DIR)get_next_line_bonus.c
+GETNEXTLINE = $(GETNEXTLINE_DIR)get_next_line.c $(GETNEXTLINE_DIR)get_next_line_utils.c \
+              $(GETNEXTLINE_DIR)get_next_line_bonus.c
 
 LISTS = $(LISTS_DIR)ft_lstadd_back.c $(LISTS_DIR)ft_lstadd_front.c \
         $(LISTS_DIR)ft_lstclear.c $(LISTS_DIR)ft_lstdelone.c $(LISTS_DIR)ft_lstiter.c \
@@ -112,7 +112,7 @@ clean:
 	@if [ -d "$(OFILES_DIR)" ]; then \
 		$(RM) -r $(OFILES_DIR); \
 		echo "$(RED)Object files have been cleaned!$(RESET)"; \
-		echo "$(YELLOW)└── Removed directory: $(OFILES_DIR)$(RESET)"; \
+		echo "$(YELLOW)└── Removed directory: libft/$(OFILES_DIR)$(RESET)"; \
 	else \
 		echo "$(BLUE)Nothing to clean - object files don't exist.$(RESET)"; \
 	fi
@@ -122,7 +122,7 @@ fclean:
 		if [ -d "$(OFILES_DIR)" ]; then \
 			$(RM) -r $(OFILES_DIR); \
 			echo "$(RED)Object files have been cleaned!$(RESET)"; \
-			echo "$(YELLOW)└── Removed directory: $(OFILES_DIR)$(RESET)"; \
+			echo "$(YELLOW)└── Removed directory: libft/$(OFILES_DIR)$(RESET)"; \
 		fi; \
 		if [ -f "$(NAME)" ]; then \
 			$(RM) $(NAME); \
