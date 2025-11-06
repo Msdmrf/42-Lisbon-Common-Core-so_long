@@ -6,7 +6,7 @@
 /*   By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:07:43 by migusant          #+#    #+#             */
-/*   Updated: 2025/05/27 15:02:02 by migusant         ###   ########.fr       */
+/*   Updated: 2025/10/20 13:20:06 by migusant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFT_H
 
 # include <ctype.h>
+# include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
 # include <stdbool.h>
