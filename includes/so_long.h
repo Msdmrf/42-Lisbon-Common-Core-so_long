@@ -6,7 +6,7 @@
 /*   By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:19:09 by migusant          #+#    #+#             */
-/*   Updated: 2025/11/05 18:58:36 by migusant         ###   ########.fr       */
+/*   Updated: 2025/11/06 16:42:12 by migusant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@
 # define EXIT 'E'
 
 // Animation Settings
-# define PLAYER_TIMER 3000
-# define ENEMY_TIMER 4500
-# define COLLECTIBLE_TIMER 4500
+# define PLAYER_TIMER 6000
+# define ENEMY_TIMER 9000
+# define COLLECTIBLE_TIMER 9000
 # define ANIMATION_FRAMES 8
 # define ENEMY_ANIMATIONS 5
-# define ENEMY_STATIC_DELAY 12000
+# define ENEMY_STATIC_DELAY 30000
 # define PLAYER_ANIMATIONS 8
-# define PLAYER_IDLE_DELAY 60000
+# define PLAYER_IDLE_DELAY 120000
 
 // Player Animation
 # define ANIM_IDLE_DOWN 0
