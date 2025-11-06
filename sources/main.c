@@ -6,7 +6,7 @@
 /*   By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:13:28 by migusant          #+#    #+#             */
-/*   Updated: 2025/08/04 19:23:10 by migusant         ###   ########.fr       */
+/*   Updated: 2025/11/05 18:56:47 by migusant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,15 @@ int	init_window(t_game *game)
 	return (1);
 }
 
-void	free_map(char **map)
-{
-	int	i;
-
-	if (!map)
-		return ;
-	i = 0;
-	while (map[i])
-		free(map[i++]);
-	free(map);
-}
-
 int	close_game(t_game *game)
 {
-	if (game->enemy.patrol)
-		free(game->enemy.patrol);
+	if (game->enemies.enemy)
+		free(game->enemies.enemy);
 	if (game->map)
+	{
 		free_map(game->map);
+		game->map = NULL;
+	}
 	destroy_images(game);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
@@ -59,6 +50,18 @@ int	close_game(t_game *game)
 	}
 	exit(0);
 	return (0);
+}
+
+void	free_map(char **map)
+{
+	int	i;
+
+	if (!map)
+		return ;
+	i = 0;
+	while (map[i])
+		free(map[i++]);
+	free(map);
 }
 
 int	main(int argc, char **argv)
@@ -76,7 +79,7 @@ int	main(int argc, char **argv)
 		return (close_game(&game), 1);
 	if (!load_sprites(&game))
 		return (close_game(&game), 1);
-	init_enemy_patrol(&game);
+	init_enemies(&game);
 	render_map(&game);
 	ft_printf("Game initialized successfully!\n");
 	ft_printf("Hold WASD to move continuously, ESC or [X] to quit.\n");

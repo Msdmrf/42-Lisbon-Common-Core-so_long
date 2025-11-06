@@ -6,34 +6,13 @@
 /*   By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 12:20:00 by migusant          #+#    #+#             */
-/*   Updated: 2025/08/04 19:23:18 by migusant         ###   ########.fr       */
+/*   Updated: 2025/11/05 19:23:25 by migusant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int	validate_map(t_game *game, char *filename)
-{
-	if (!check_file_extension(filename)
-		|| !check_rectangular(game)
-		|| !check_map_size(game)
-		|| !check_invalid_chars(game)
-		|| !check_walls(game)
-		|| !check_player(game)
-		|| !check_collectibles(game)
-		|| !check_enemies(game)
-		|| !check_path(game)
-		|| !check_exit(game))
-		return (0);
-	ft_printf("Map validation successful!\n");
-	ft_printf("Map size: %dx%d\n", game->map_width, game->map_height);
-	ft_printf("Player at: (%d, %d)\n", game->player.x, game->player.y);
-	ft_printf("Collectibles: %d\n", game->collectible.count);
-	ft_printf("Enemies: %d\n", game->enemy.count);
-	return (1);
-}
-
-int	check_file_extension(char *filename)
+static int	check_file_extension(char *filename)
 {
 	int	len;
 
@@ -51,7 +30,7 @@ int	check_file_extension(char *filename)
 	return (1);
 }
 
-int	check_rectangular(t_game *game)
+static int	check_rectangular(t_game *game)
 {
 	int	i;
 
@@ -68,7 +47,7 @@ int	check_rectangular(t_game *game)
 	return (1);
 }
 
-int	check_map_size(t_game *game)
+static int	check_map_size(t_game *game)
 {
 	if ((game->map_width < 3 || game->map_height < 5)
 		&& (game->map_width < 5 || game->map_height < 3))
@@ -78,14 +57,14 @@ int	check_map_size(t_game *game)
 	}
 	if (game->map_width > MAX_MAP_WIDTH || game->map_height > MAX_MAP_HEIGHT)
 	{
-		ft_printf("Error\nMap too large (maximum %dx%d).\n",
+		ft_printf("Error\nMap too large (maximum %dx%d).",
 			MAX_MAP_WIDTH, MAX_MAP_HEIGHT);
 		return (0);
 	}
 	return (1);
 }
 
-int	check_invalid_chars(t_game *game)
+static int	check_invalid_chars(t_game *game)
 {
 	int	x;
 	int	y;
@@ -109,5 +88,26 @@ int	check_invalid_chars(t_game *game)
 		}
 		y++;
 	}
+	return (1);
+}
+
+int	validate_map(t_game *game, char *filename)
+{
+	if (!check_file_extension(filename)
+		|| !check_rectangular(game)
+		|| !check_map_size(game)
+		|| !check_invalid_chars(game)
+		|| !check_walls(game)
+		|| !check_player(game)
+		|| !check_collectibles(game)
+		|| !check_enemies(game)
+		|| !check_path(game)
+		|| !check_exit(game))
+		return (0);
+	ft_printf("Map validation successful!\n");
+	ft_printf("Map size: %dx%d\n", game->map_width, game->map_height);
+	ft_printf("Player at: (%d, %d)\n", game->player.x, game->player.y);
+	ft_printf("Collectibles: %d\n", game->collectible.count);
+	ft_printf("Enemies: %d\n", game->enemies.count);
 	return (1);
 }

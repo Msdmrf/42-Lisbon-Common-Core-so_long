@@ -6,7 +6,7 @@
 /*   By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 17:27:52 by migusant          #+#    #+#             */
-/*   Updated: 2025/08/04 19:23:08 by migusant         ###   ########.fr       */
+/*   Updated: 2025/11/05 18:56:45 by migusant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	game_loop(t_game *game)
 {
 	static int	alternate;
 
-	game->player.timer++;
-	if (game->player.timer < PLAYER_TIMER)
+	game->player.move_timer++;
+	if (game->player.move_timer < PLAYER_TIMER)
 	{
 		update_enemy(game);
 		update_collectible_sprites(game);
@@ -25,7 +25,7 @@ int	game_loop(t_game *game)
 		update_player_sprites(game);
 		return (0);
 	}
-	game->player.timer = 0;
+	game->player.move_timer = 0;
 	handle_movement(game, &alternate);
 	return (0);
 }

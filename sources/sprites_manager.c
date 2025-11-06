@@ -6,26 +6,13 @@
 /*   By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:01:50 by migusant          #+#    #+#             */
-/*   Updated: 2025/08/04 19:24:03 by migusant         ###   ########.fr       */
+/*   Updated: 2025/11/05 18:57:23 by migusant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int	load_sprites(t_game *game)
-{
-	if (!load_basic_sprites(game))
-		return (0);
-	if (!load_animation_sprites(game))
-		return (0);
-	game->collectible.frame = 0;
-	game->collectible.timer = 0;
-	game->enemy.anim_timer = 0;
-	init_player_animation(game);
-	return (1);
-}
-
-int	load_basic_sprites(t_game *game)
+static int	load_basic_sprites(t_game *game)
 {
 	game->wall_img = mlx_xpm_file_to_image(game->mlx,
 			"textures/static/wall.xpm", &game->img_width, &game->img_height);
@@ -43,18 +30,27 @@ int	load_basic_sprites(t_game *game)
 	return (1);
 }
 
-int	load_animation_sprites(t_game *game)
+static int	load_animation_sprites(t_game *game)
 {
+	if (!load_player_sprites(game))
+		return (0);
 	if (!load_collectible_sprites(game))
 		return (0);
 	if (!load_enemy_sprites(game))
 		return (0);
-	if (!load_player_sprites(game))
+	return (1);
+}
+
+int	load_sprites(t_game *game)
+{
+	if (!load_basic_sprites(game))
+		return (0);
+	if (!load_animation_sprites(game))
 		return (0);
 	return (1);
 }
 
-void	destroy_sprite_arrays(t_game *game)
+static void	destroy_sprite_arrays(t_game *game)
 {
 	int	i;
 	int	j;
@@ -75,9 +71,9 @@ void	destroy_sprite_arrays(t_game *game)
 	while (++i < ENEMY_ANIMATIONS)
 	{
 		j = 0;
-		while (j < ANIMATION_FRAMES && game->enemy.sprites[i][j])
+		while (j < ANIMATION_FRAMES && game->enemies.sprites[i][j])
 			mlx_destroy_image(game->mlx,
-				game->enemy.sprites[i][j++]);
+				game->enemies.sprites[i][j++]);
 	}
 }
 
@@ -101,8 +97,8 @@ void	destroy_images(t_game *game)
 			mlx_destroy_image(game->mlx, game->player.static_sprites[i]);
 		if (game->player.exit_static_sprites[i])
 			mlx_destroy_image(game->mlx, game->player.exit_static_sprites[i]);
-		if (game->enemy.static_sprites[i])
-			mlx_destroy_image(game->mlx, game->enemy.static_sprites[i]);
+		if (game->enemies.static_sprites[i])
+			mlx_destroy_image(game->mlx, game->enemies.static_sprites[i]);
 	}
 	i = -1;
 	while (++i < ANIMATION_FRAMES)

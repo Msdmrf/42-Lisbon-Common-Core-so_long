@@ -6,7 +6,7 @@
 /*   By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 16:32:59 by migusant          #+#    #+#             */
-/*   Updated: 2025/08/04 19:24:10 by migusant         ###   ########.fr       */
+/*   Updated: 2025/11/05 18:57:28 by migusant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ static void	render_all_by_type(t_game *game, char type)
 		{
 			if (type == COLLECTIBLE && game->map[y][x] == COLLECTIBLE)
 				render_tiles(game, x, y);
-			else if (type != COLLECTIBLE && (game->map[y][x] == ENEMY_STATIC
+			else if ((type == ENEMY_STATIC || type == ENEMY_HORIZONTAL
+					|| type == ENEMY_VERTICAL)
+				&& (game->map[y][x] == ENEMY_STATIC
 				|| game->map[y][x] == ENEMY_HORIZONTAL
 				|| game->map[y][x] == ENEMY_VERTICAL))
 				render_tiles(game, x, y);
@@ -37,13 +39,32 @@ static void	render_all_by_type(t_game *game, char type)
 
 void	update_collectible_sprites(t_game *game)
 {
-	game->collectible.timer++;
-	if (game->collectible.timer >= COLLECTIBLE_TIMER)
+	game->collectible.anim_timer++;
+	if (game->collectible.anim_timer >= COLLECTIBLE_TIMER)
 	{
-		game->collectible.timer = 0;
-		game->collectible.frame = (game->collectible.frame + 1)
+		game->collectible.anim_timer = 0;
+		game->collectible.curr_frame = (game->collectible.curr_frame + 1)
 			% ANIMATION_FRAMES;
 		render_all_by_type(game, COLLECTIBLE);
+	}
+}
+
+void	update_enemy_sprites(t_game *game)
+{
+	int	i;
+
+	game->enemies.anim_timer++;
+	if (game->enemies.anim_timer >= ENEMY_TIMER)
+	{
+		game->enemies.anim_timer = 0;
+		i = 0;
+		while (i < game->enemies.count)
+		{
+			game->enemies.enemy[i].curr_frame
+				= (game->enemies.enemy[i].curr_frame + 1) % ANIMATION_FRAMES;
+			i++;
+		}
+		render_all_by_type(game, ENEMY_STATIC);
 	}
 }
 
@@ -53,16 +74,16 @@ static void	handle_static_to_idle_transition(t_game *game)
 	if (game->player.idle_timer >= PLAYER_IDLE_DELAY)
 	{
 		game->player.state = PLAYER_STATE_IDLE;
-		game->player.frame = 0;
+		game->player.curr_frame = 0;
 		game->player.anim_timer = 0;
 		if (game->player.last_direction == DIRECTION_DOWN)
-			game->player.current_anim = ANIM_IDLE_DOWN;
+			game->player.curr_anim = ANIM_IDLE_DOWN;
 		else if (game->player.last_direction == DIRECTION_UP)
-			game->player.current_anim = ANIM_IDLE_UP;
+			game->player.curr_anim = ANIM_IDLE_UP;
 		else if (game->player.last_direction == DIRECTION_LEFT)
-			game->player.current_anim = ANIM_IDLE_LEFT;
+			game->player.curr_anim = ANIM_IDLE_LEFT;
 		else if (game->player.last_direction == DIRECTION_RIGHT)
-			game->player.current_anim = ANIM_IDLE_RIGHT;
+			game->player.curr_anim = ANIM_IDLE_RIGHT;
 	}
 }
 
@@ -76,7 +97,8 @@ void	update_player_sprites(t_game *game)
 		if (game->player.anim_timer >= PLAYER_TIMER)
 		{
 			game->player.anim_timer = 0;
-			game->player.frame = (game->player.frame + 1) % ANIMATION_FRAMES;
+			game->player.curr_frame = (game->player.curr_frame + 1)
+				% ANIMATION_FRAMES;
 			render_tiles(game, game->player.x, game->player.y);
 		}
 	}
@@ -86,27 +108,9 @@ void	update_player_sprites(t_game *game)
 		if (game->player.anim_timer >= PLAYER_TIMER)
 		{
 			game->player.anim_timer = 0;
-			game->player.frame = (game->player.frame + 1) % ANIMATION_FRAMES;
+			game->player.curr_frame = (game->player.curr_frame + 1)
+				% ANIMATION_FRAMES;
 			render_tiles(game, game->player.x, game->player.y);
 		}
-	}
-}
-
-void	update_enemy_sprites(t_game *game)
-{
-	int	i;
-
-	game->enemy.anim_timer++;
-	if (game->enemy.anim_timer >= ENEMY_TIMER)
-	{
-		game->enemy.anim_timer = 0;
-		i = 0;
-		while (i < game->enemy.count)
-		{
-			game->enemy.patrol[i].frame = (game->enemy.patrol[i].frame + 1)
-				% ANIMATION_FRAMES;
-			i++;
-		}
-		render_all_by_type(game, ENEMY_STATIC);
 	}
 }

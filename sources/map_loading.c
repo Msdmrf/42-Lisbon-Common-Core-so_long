@@ -6,36 +6,13 @@
 /*   By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 12:19:34 by migusant          #+#    #+#             */
-/*   Updated: 2025/08/04 19:23:13 by migusant         ###   ########.fr       */
+/*   Updated: 2025/11/05 18:56:49 by migusant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int	load_map(t_game *game, char *filename)
-{
-	game->map_height = count_lines(filename);
-	if (game->map_height <= 0)
-	{
-		ft_putendl_fd("Error\nCould not read map file.", 2);
-		return (0);
-	}
-	game->map = allocate_map(game->map_height);
-	if (!game->map)
-	{
-		ft_putendl_fd("Error\nMemory allocation failed.", 2);
-		return (0);
-	}
-	if (!read_map_lines(game, filename))
-	{
-		free_map(game->map);
-		ft_putendl_fd("Error\nCould not read map content.", 2);
-		return (0);
-	}
-	return (validate_map(game, filename));
-}
-
-int	count_lines(char *filename)
+static int	count_lines(char *filename)
 {
 	int		fd;
 	int		lines;
@@ -56,7 +33,7 @@ int	count_lines(char *filename)
 	return (lines);
 }
 
-char	**allocate_map(int lines)
+static char	**allocate_map(int lines)
 {
 	char	**map;
 
@@ -67,7 +44,7 @@ char	**allocate_map(int lines)
 	return (map);
 }
 
-int	read_map_lines(t_game *game, char *filename)
+static int	read_map_lines(t_game *game, char *filename)
 {
 	int		fd;
 	int		i;
@@ -92,4 +69,28 @@ int	read_map_lines(t_game *game, char *filename)
 	}
 	close(fd);
 	return (1);
+}
+
+int	load_map(t_game *game, char *filename)
+{
+	game->map_height = count_lines(filename);
+	if (game->map_height <= 0)
+	{
+		ft_putendl_fd("Error\nCould not read map file.", 2);
+		return (0);
+	}
+	game->map = allocate_map(game->map_height);
+	if (!game->map)
+	{
+		ft_putendl_fd("Error\nMemory allocation failed.", 2);
+		return (0);
+	}
+	if (!read_map_lines(game, filename))
+	{
+		free_map(game->map);
+		game->map = NULL;
+		ft_putendl_fd("Error\nCould not read map content.", 2);
+		return (0);
+	}
+	return (validate_map(game, filename));
 }

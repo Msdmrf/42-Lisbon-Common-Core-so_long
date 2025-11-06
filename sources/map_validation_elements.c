@@ -6,7 +6,7 @@
 /*   By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 12:54:15 by migusant          #+#    #+#             */
-/*   Updated: 2025/08/04 19:23:21 by migusant         ###   ########.fr       */
+/*   Updated: 2025/11/05 18:56:56 by migusant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int	check_player(t_game *game)
 {
 	int	x;
 	int	y;
-	int	players;
+	int	count;
 
-	players = 0;
+	count = 0;
 	y = 0;
 	while (y < game->map_height)
 	{
@@ -53,7 +53,7 @@ int	check_player(t_game *game)
 		{
 			if (game->map[y][x] == PLAYER)
 			{
-				players++;
+				count++;
 				game->player.x = x;
 				game->player.y = y;
 			}
@@ -61,7 +61,7 @@ int	check_player(t_game *game)
 		}
 		y++;
 	}
-	if (players != 1)
+	if (count != 1)
 		return (ft_putendl_fd("Error\nMap must only have one player.", 2), 0);
 	return (1);
 }
@@ -70,9 +70,9 @@ int	check_collectibles(t_game *game)
 {
 	int	x;
 	int	y;
-	int	collectibles;
+	int	count;
 
-	collectibles = 0;
+	count = 0;
 	y = 0;
 	while (y < game->map_height)
 	{
@@ -80,13 +80,13 @@ int	check_collectibles(t_game *game)
 		while (x < game->map_width)
 		{
 			if (game->map[y][x] == COLLECTIBLE)
-				collectibles++;
+				count++;
 			x++;
 		}
 		y++;
 	}
-	game->collectible.count = collectibles;
-	if (collectibles < 1)
+	game->collectible.count = count;
+	if (count < 1)
 	{
 		ft_putendl_fd("Error\nMap must have at least one collectible.", 2);
 		return (0);
@@ -98,9 +98,9 @@ int	check_enemies(t_game *game)
 {
 	int	x;
 	int	y;
-	int	enemies;
+	int	count;
 
-	enemies = 0;
+	count = 0;
 	y = 0;
 	while (y < game->map_height)
 	{
@@ -110,12 +110,12 @@ int	check_enemies(t_game *game)
 			if (game->map[y][x] == ENEMY_STATIC
 				|| game->map[y][x] == ENEMY_HORIZONTAL
 				|| game->map[y][x] == ENEMY_VERTICAL)
-				enemies++;
+				count++;
 			x++;
 		}
 		y++;
 	}
-	game->enemy.count = enemies;
+	game->enemies.count = count;
 	return (1);
 }
 
@@ -123,9 +123,9 @@ int	check_exit(t_game *game)
 {
 	int	x;
 	int	y;
-	int	exits;
+	int	count;
 
-	exits = 0;
+	count = 0;
 	y = 0;
 	while (y < game->map_height)
 	{
@@ -134,7 +134,7 @@ int	check_exit(t_game *game)
 		{
 			if (game->map[y][x] == EXIT)
 			{
-				exits++;
+				count++;
 				game->exit_x = x;
 				game->exit_y = y;
 			}
@@ -142,7 +142,7 @@ int	check_exit(t_game *game)
 		}
 		y++;
 	}
-	if (exits != 1)
+	if (count != 1)
 		return (ft_putendl_fd("Error\nMap must only have one exit.", 2), 0);
 	return (1);
 }

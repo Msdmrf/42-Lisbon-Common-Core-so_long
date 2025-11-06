@@ -6,7 +6,7 @@
 /*   By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 13:40:33 by migusant          #+#    #+#             */
-/*   Updated: 2025/08/04 19:23:47 by migusant         ###   ########.fr       */
+/*   Updated: 2025/11/05 18:57:10 by migusant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	render_map(t_game *game)
 	display_move_counter(game);
 }
 
-void	render_tile(t_game *game, int x, int y, void *img)
+static void	render_tile(t_game *game, int x, int y, void *img)
 {
 	mlx_put_image_to_window(game->mlx, game->win, img,
 		x * TILE_SIZE, y * TILE_SIZE);
@@ -49,11 +49,11 @@ void	render_tiles(t_game *game, int x, int y)
 		|| game->map[y][x] == ENEMY_VERTICAL)
 	{
 		i = -1;
-		while (++i < game->enemy.count)
+		while (++i < game->enemies.count)
 		{
-			if (game->enemy.patrol[i].x == x && game->enemy.patrol[i].y == y)
+			if (game->enemies.enemy[i].x == x && game->enemies.enemy[i].y == y)
 			{
-				render_enemy_frame(game, x, y, &game->enemy.patrol[i]);
+				render_enemy_frame(game, &game->enemies.enemy[i], x, y);
 				break ;
 			}
 		}
