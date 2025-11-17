@@ -6,7 +6,7 @@
 /*   By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 12:20:00 by migusant          #+#    #+#             */
-/*   Updated: 2025/11/05 19:23:25 by migusant         ###   ########.fr       */
+/*   Updated: 2025/11/07 13:00:22 by migusant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,19 @@ static int	check_file_extension(char *filename)
 	int	len;
 
 	len = ft_strlen(filename);
-	if (len < 4)
+	if (len < 5)
 	{
-		ft_putendl_fd("Error\nMap file must have .ber extension.", 2);
+		ft_putendl_fd("Error\nMap filename must have .ber extension.", 2);
 		return (0);
 	}
-	if (!ft_strnstr(filename + len - 4, ".ber", 4))
+	if (filename[0] == '.')
 	{
-		ft_putendl_fd("Error\nMap file must have .ber extension.", 2);
+		ft_putendl_fd("Error\nMap filename cannot be a hidden file.", 2);
+		return (0);
+	}
+	if (ft_strncmp(filename + len - 4, ".ber", 4) != 0)
+	{
+		ft_putendl_fd("Error\nMap filename must have .ber extension.", 2);
 		return (0);
 	}
 	return (1);

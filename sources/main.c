@@ -6,7 +6,7 @@
 /*   By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:13:28 by migusant          #+#    #+#             */
-/*   Updated: 2025/11/05 18:56:47 by migusant         ###   ########.fr       */
+/*   Updated: 2025/11/07 12:30:24 by migusant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	init_window(t_game *game)
 	return (1);
 }
 
-int	close_game(t_game *game)
+static void	cleanup_and_exit(t_game *game, int exit_code)
 {
 	if (game->enemies.enemy)
 		free(game->enemies.enemy);
@@ -48,7 +48,12 @@ int	close_game(t_game *game)
 		mlx_destroy_display(game->mlx);
 		free(game->mlx);
 	}
-	exit(0);
+	exit(exit_code);
+}
+
+int	close_game(t_game *game)
+{
+	cleanup_and_exit(game, 0);
 	return (0);
 }
 
@@ -74,19 +79,20 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	if (!load_map(&game, argv[1]))
-		return (close_game(&game), 1);
+		return (cleanup_and_exit(&game, 1), 1);
 	if (!init_window(&game))
-		return (close_game(&game), 1);
+		return (cleanup_and_exit(&game, 1), 1);
 	if (!load_sprites(&game))
-		return (close_game(&game), 1);
-	init_enemies(&game);
+		return (cleanup_and_exit(&game, 1), 1);
+	if (!init_enemies(&game))
+		return (cleanup_and_exit(&game, 1), 1);
 	render_map(&game);
 	ft_printf("Game initialized successfully!\n");
 	ft_printf("Hold WASD to move continuously, ESC or [X] to quit.\n");
 	ft_printf("Avoid enemies or you'll lose the game!\n");
-	mlx_hook(game.win, 17, 0, close_game, &game);
-	mlx_hook(game.win, 2, 1L << 0, handle_keypress, &game);
-	mlx_hook(game.win, 3, 1L << 1, handle_keyrelease, &game);
+	mlx_hook(game.win, DestroyNotify, NoEventMask, close_game, &game);
+	mlx_hook(game.win, KeyPress, KeyPressMask, handle_keypress, &game);
+	mlx_hook(game.win, KeyRelease, KeyReleaseMask, handle_keyrelease, &game);
 	mlx_loop_hook(game.mlx, game_loop, &game);
 	mlx_loop(game.mlx);
 	return (0);

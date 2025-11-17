@@ -6,7 +6,7 @@
 /*   By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 20:46:54 by migusant          #+#    #+#             */
-/*   Updated: 2025/11/05 18:56:36 by migusant         ###   ########.fr       */
+/*   Updated: 2025/11/07 12:03:07 by migusant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	init_enemy(t_enemy *enemy, int x, int y, char type)
 	enemy->static_timer = 0;
 }
 
-void	init_enemies(t_game *game)
+int	init_enemies(t_game *game)
 {
 	int	i;
 	int	x;
@@ -41,7 +41,7 @@ void	init_enemies(t_game *game)
 
 	game->enemies.enemy = malloc(sizeof(t_enemy) * game->enemies.count);
 	if (!game->enemies.enemy)
-		return ;
+		return (0);
 	i = 0;
 	y = 0;
 	while (y < game->map_height)
@@ -57,6 +57,7 @@ void	init_enemies(t_game *game)
 		}
 		y++;
 	}
+	return (1);
 }
 
 void	update_enemy_states(t_game *game)
