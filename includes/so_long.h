@@ -6,13 +6,15 @@
 /*   By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:19:09 by migusant          #+#    #+#             */
-/*   Updated: 2025/11/06 16:42:12 by migusant         ###   ########.fr       */
+/*   Updated: 2025/11/07 12:28:17 by migusant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
+# include <X11/X.h>
+# include <X11/keysym.h>
 # include "../libft/includes/libft.h"
 # include "../minilibx-linux/mlx.h"
 
@@ -34,13 +36,6 @@
 #  define MAX_MAP_HEIGHT 33
 # endif
 
-// Keysyms
-# define KEY_ESC 65307
-# define KEY_S 115
-# define KEY_W 119
-# define KEY_A 97
-# define KEY_D 100
-
 // Game Elements
 # define WALL '1'
 # define EMPTY '0'
@@ -52,14 +47,14 @@
 # define EXIT 'E'
 
 // Animation Settings
-# define PLAYER_TIMER 6000
-# define ENEMY_TIMER 9000
-# define COLLECTIBLE_TIMER 9000
+# define PLAYER_TIMER 3000
+# define ENEMY_TIMER 4500
+# define COLLECTIBLE_TIMER 4500
 # define ANIMATION_FRAMES 8
 # define ENEMY_ANIMATIONS 5
-# define ENEMY_STATIC_DELAY 30000
+# define ENEMY_STATIC_DELAY 12000
 # define PLAYER_ANIMATIONS 8
-# define PLAYER_IDLE_DELAY 120000
+# define PLAYER_IDLE_DELAY 60000
 
 // Player Animation
 # define ANIM_IDLE_DOWN 0
@@ -205,7 +200,7 @@ int		load_collectible_sprites(t_game *game);
 int		load_enemy_sprites(t_game *game);
 
 // Enemy System (enemy_system.c) (2 / 5)
-void	init_enemies(t_game *game);
+int		init_enemies(t_game *game);
 
 // Game Loop (game_loop.c) (1 / 1)
 int		game_loop(t_game *game);
